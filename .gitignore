@@ -1,0 +1,135 @@
+# =============================================================
+#  FastAPI + Alembic + PostgreSQL  —  .gitignore
+# =============================================================
+
+# ──────────────────────────────────────────
+# Python
+# ──────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+MANIFEST
+.eggs/
+wheels/
+
+# Unit test / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+nosetests.xml
+test-results/
+
+# Type checking
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pytype/
+
+# ──────────────────────────────────────────
+# Virtual Environments
+# ──────────────────────────────────────────
+venv/
+.venv/
+env/
+.env_backup
+ENV/
+env.bak/
+venv.bak/
+
+# ──────────────────────────────────────────
+# Environment & Secrets  ← NEVER commit these
+# ──────────────────────────────────────────
+.env
+.env.*
+!.env.example          # allow a safe template to be committed
+*.pem
+*.key
+secrets.json
+secrets.yaml
+
+# ──────────────────────────────────────────
+# Alembic
+# ──────────────────────────────────────────
+# Keep alembic/versions/ tracked — migrations should be committed.
+# Only ignore auto-generated temp files if any.
+alembic/versions/__pycache__/
+
+# ──────────────────────────────────────────
+# Database
+# ──────────────────────────────────────────
+*.db
+*.sqlite3
+*.sqlite
+*.sql.gz
+*.dump
+
+# ──────────────────────────────────────────
+# Logs
+# ──────────────────────────────────────────
+*.log
+logs/
+log/
+
+# ──────────────────────────────────────────
+# IDE & Editors
+# ──────────────────────────────────────────
+# VS Code
+.vscode/
+!.vscode/extensions.json   # allow recommended extensions list
+
+# PyCharm / JetBrains
+.idea/
+*.iml
+
+# Vim / Emacs
+*.swp
+*.swo
+*~
+\#*\#
+.\#*
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# ──────────────────────────────────────────
+# OS-specific
+# ──────────────────────────────────────────
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Linux
+*~
+
+# ──────────────────────────────────────────
+# Miscellaneous
+# ──────────────────────────────────────────
+*.bak
+*.tmp
+*.temp
+.cache/
+.sass-cache/
