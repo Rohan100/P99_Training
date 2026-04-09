@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Professional Layout</title>
+
+    <style>
+        :root {
+            --primary: #e63946;
+            --dark: #1d1d1d;
+            --light: #f5f5f5;
+        }
+
+        /* Reset */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.5;
+            background: var(--light);
+        }
+
+        /* Layout Wrapper */
+        .layout {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav__menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav__menu a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+        }
+
+        /* Main Layout */
+        .main {
+            flex: 1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 1.5rem;
+        }
+
+        .content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .sidebar {
+            background: var(--primary);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            height: fit-content;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            /* 3 columns */
+            gap: 20px;
+
+            max-width: 600px;
+            margin: 40px auto;
+            /* centers horizontally */
+        }
+
+        .box {
+            background: #457b9d;
+            color: white;
+            height: 100px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 1.5rem;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="layout">
+
+        <!-- Header -->
+        <header class="header">
+            <nav class="nav">
+                <div class="logo">LOGO</div>
+
+                <ul class="nav__menu">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section class="content">
+            <h1>Grid Section</h1>
+
+            <div class="grid">
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+            </div>
+        </section>
+
+        <!-- Main -->
+        <main class="main">
+            <div class="container">
+
+                <section class="content">
+                    <h1>Main Content</h1>
+                    <p>This is a clean, scalable layout using CSS Grid.</p>
+                </section>
+
+                <aside class="sidebar">
+                    <h2>Sidebar</h2>
+                    <p>This stays on the right (desktop) and moves on top (mobile).</p>
+                </aside>
+
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2026 Your Website</p>
+        </footer>
+
+    </div>
+
+</body>
+
+</html>

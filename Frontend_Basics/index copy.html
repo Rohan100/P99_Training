@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .card {
+            position: relative;
+            width: 300px;
+            height: 400px;
+            background: green;
+        }
+
+        .arrow {
+            position: absolute;
+            border-top: 2px solid white;
+            border-left: 2px solid white;
+            border-right: 0px solid white;
+            border-bottom: 0 solid white;
+            transform: rotate(220deg);
+            top: 4px;
+            right: 9px;
+            border-color: white;
+            z-index: 1;
+            width: 20px;
+            height: 20px;
+            /* background: #000; */
+        }
+
+        .chatbot {
+            width: 60px;
+            height: 60px;
+            border-radius: 100%;
+            border: 2px solid black;
+            position: fixed;
+            bottom: 20px;
+            right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .grid_container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            width: 600px;
+        }
+
+        .grid_container div {
+            width: 100%;
+            height: 200px;
+            background: #000;
+            border-radius: 10px;
+        }
+
+        .grid_container div:nth-child(1) {
+            grid-column: 1 / span 2;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <p class="arrow"></p>
+    </div>
+    <div class="grid_container">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="chatbot">
+        <p>Chat</p>
+
+    </div>
+
+</body>
+
+</html>
