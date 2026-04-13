@@ -1,5 +1,7 @@
 const fs = require('node:fs/promises');
+const path = require('path')
 
+console.log(path.join(__dirname, 'file.txt'))
 
 setTimeout(() => {
     console.log("5 sec")
