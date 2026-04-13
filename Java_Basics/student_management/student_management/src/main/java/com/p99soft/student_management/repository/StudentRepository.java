@@ -1,4 +1,10 @@
 package com.p99soft.student_management.repository;
 
-public class StudentRepository {
+import com.p99soft.student_management.entity.Student;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface StudentRepository extends JpaRepository<Student, Long> {
+
+
+
 }
