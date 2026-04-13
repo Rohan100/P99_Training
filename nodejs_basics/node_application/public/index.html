@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Management System</title>
+  <meta name="description" content="Simple Student Management CRUD application." />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      color: #333;
+      font-size: 14px;
+    }
+
+    /* Header */
+    header {
+      background: #2c3e50;
+      color: #fff;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    header h1 { font-size: 1.1rem; font-weight: bold; }
+    header span { font-size: 0.78rem; opacity: 0.65; }
+
+    /* Layout */
+    .container { max-width: 1000px; margin: 24px auto; padding: 0 16px; }
+
+    /* Card */
+    .card {
+      background: #fff;
+      border: 1px solid #dce1e7;
+      border-radius: 6px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: bold;
+      color: #2c3e50;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    /* Form */
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .form-group { display: flex; flex-direction: column; gap: 4px; }
+    .form-group label { font-size: 0.78rem; color: #666; font-weight: 600; }
+    .form-group input {
+      padding: 7px 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 0.88rem;
+      color: #333;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .form-group input:focus { border-color: #2c3e50; }
+
+    .form-actions { margin-top: 14px; display: flex; gap: 8px; }
+
+    /* Buttons */
+    .btn {
+      padding: 7px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .btn-primary { background: #2c3e50; color: #fff; }
+    .btn-primary:hover { background: #1a252f; }
+    .btn-secondary { background: #fff; color: #555; border: 1px solid #ccc; }
+    .btn-secondary:hover { background: #f0f0f0; }
+    .btn-edit   { background: #2980b9; color: #fff; padding: 4px 10px; font-size: 0.78rem; border-radius: 3px; border: none; cursor: pointer; }
+    .btn-delete { background: #e74c3c; color: #fff; padding: 4px 10px; font-size: 0.78rem; border-radius: 3px; border: none; cursor: pointer; }
+    .btn-edit:hover   { background: #1f6fa0; }
+    .btn-delete:hover { background: #c0392b; }
+
+    /* Search */
+    .search-row { display: flex; gap: 8px; margin-bottom: 12px; align-items: center; }
+    .search-row input {
+      flex: 1;
+      padding: 7px 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 0.88rem;
+      outline: none;
+    }
+    .search-row input:focus { border-color: #2c3e50; }
+
+    /* Table */
+    table { width: 100%; border-collapse: collapse; }
+    thead tr { background: #f0f3f5; }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #eee; }
+    th { font-size: 0.78rem; font-weight: 700; color: #555; text-transform: uppercase; letter-spacing: 0.04em; }
+    td { font-size: 0.86rem; }
+    tbody tr:hover { background: #fafafa; }
+    tbody tr:last-child td { border-bottom: none; }
+
+    .actions { display: flex; gap: 6px; }
+
+    /* Empty & Loading */
+    .empty { text-align: center; padding: 36px; color: #999; font-size: 0.9rem; }
+
+    /* Alert message */
+    .alert {
+      padding: 10px 14px;
+      border-radius: 4px;
+      margin-bottom: 14px;
+      font-size: 0.85rem;
+      display: none;
+    }
+    .alert.success { background: #eafaf1; border: 1px solid #a9dfbf; color: #1e8449; }
+    .alert.error   { background: #fdedec; border: 1px solid #f5b7b1; color: #c0392b; }
+
+    /* Modal */
+    .overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+    .overlay.show { display: flex; }
+    .modal {
+      background: #fff;
+      border-radius: 6px;
+      padding: 24px;
+      width: 340px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+    .modal h3 { font-size: 1rem; margin-bottom: 8px; }
+    .modal p  { font-size: 0.85rem; color: #666; margin-bottom: 20px; }
+    .modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
+
+    @media (max-width: 640px) {
+      .form-row { grid-template-columns: 1fr 1fr; }
+      th:nth-child(n+4), td:nth-child(n+4) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <span style="font-size:20px">🎓</span>
+  <h1>Student Management System</h1>
+  <span style="margin-left:auto">Node.js &amp; PostgreSQL</span>
+</header>
+
+<div class="container">
+
+  <!-- Form -->
+  <div class="card">
+    <div class="card-title" id="formTitle">Add New Student</div>
+
+    <div class="alert" id="formAlert"></div>
+
+    <form id="studentForm" novalidate>
+      <input type="hidden" id="studentId" />
+      <div class="form-row">
+        <div class="form-group">
+          <label for="first_name">First Name *</label>
+          <input id="first_name" type="text" placeholder="Jane" required />
+        </div>
+        <div class="form-group">
+          <label for="last_name">Last Name *</label>
+          <input id="last_name" type="text" placeholder="Doe" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input id="email" type="email" placeholder="jane@example.com" required />
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input id="phone" type="tel" placeholder="+91 9876543210" />
+        </div>
+        <div class="form-group">
+          <label for="age">Age</label>
+          <input id="age" type="number" placeholder="21" min="1" max="100" />
+        </div>
+        <div class="form-group">
+          <label for="course">Course</label>
+          <input id="course" type="text" placeholder="Computer Science" />
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary" id="submitBtn">Add Student</button>
+        <button type="button" class="btn btn-secondary" id="cancelBtn" style="display:none">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Table -->
+  <div class="card">
+    <div class="card-title">Student Records <span id="countBadge" style="font-weight:normal;color:#999;font-size:0.8rem"></span></div>
+
+    <div class="search-row">
+      <input id="searchInput" type="text" placeholder="Search by name, email or course..." />
+      <button class="btn btn-secondary" onclick="loadStudents()">Refresh</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Age</th>
+          <th>Course</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        <tr><td colspan="7"><div class="empty">Loading…</div></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<!-- Delete Modal -->
+<div class="overlay" id="deleteOverlay">
+  <div class="modal">
+    <h3>Delete Student?</h3>
+    <p>Are you sure you want to delete this student? This cannot be undone.</p>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-delete" id="confirmDeleteBtn">Delete</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const API = '/api/students';
+  let allStudents = [];
+  let pendingDeleteId = null;
+
+  /* ── Load all students ─────────────────────────────────────────── */
+  async function loadStudents() {
+    try {
+      const res  = await fetch(API);
+      const json = await res.json();
+      allStudents = json.data || [];
+      renderTable(allStudents);
+      document.getElementById('countBadge').textContent =
+        `(${allStudents.length} record${allStudents.length === 1 ? '' : 's'})`;
+    } catch {
+      showAlert('formAlert', 'Could not connect to the server.', 'error');
+    }
+  }
+
+  /* ── Render table ─────────────────────────────────────────────── */
+  function renderTable(students) {
+    const tbody = document.getElementById('tableBody');
+    if (!students.length) {
+      tbody.innerHTML = `<tr><td colspan="7"><div class="empty">No students found.</div></td></tr>`;
+      return;
+    }
+    tbody.innerHTML = students.map((s, i) => `
+      <tr>
+        <td style="color:#999">${i + 1}</td>
+        <td>${esc(s.first_name)} ${esc(s.last_name)}</td>
+        <td>${esc(s.email)}</td>
+        <td>${s.phone ? esc(s.phone) : '—'}</td>
+        <td>${s.age ?? '—'}</td>
+        <td>${s.course ? esc(s.course) : '—'}</td>
+        <td class="actions">
+          <button class="btn-edit"   onclick="editStudent(${s.id})">Edit</button>
+          <button class="btn-delete" onclick="confirmDelete(${s.id})">Delete</button>
+        </td>
+      </tr>`).join('');
+  }
+
+  /* ── Search ───────────────────────────────────────────────────── */
+  document.getElementById('searchInput').addEventListener('input', e => {
+    const q = e.target.value.toLowerCase();
+    renderTable(allStudents.filter(s =>
+      `${s.first_name} ${s.last_name} ${s.email} ${s.course || ''}`.toLowerCase().includes(q)
+    ));
+  });
+
+  /* ── Form submit ──────────────────────────────────────────────── */
+  document.getElementById('studentForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const id = document.getElementById('studentId').value;
+    const payload = {
+      first_name: document.getElementById('first_name').value.trim(),
+      last_name:  document.getElementById('last_name').value.trim(),
+      email:      document.getElementById('email').value.trim(),
+      phone:      document.getElementById('phone').value.trim() || null,
+      age:        document.getElementById('age').value ? parseInt(document.getElementById('age').value) : null,
+      course:     document.getElementById('course').value.trim() || null,
+    };
+
+    const btn = document.getElementById('submitBtn');
+    btn.textContent = 'Saving…';
+    btn.disabled = true;
+
+    try {
+      const res  = await fetch(id ? `${API}/${id}` : API, {
+        method:  id ? 'PUT' : 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(payload),
+      });
+      const json = await res.json();
+
+      if (!res.ok) {
+        const msg = json.errors ? json.errors.map(e => e.message).join(', ') : json.message;
+        showAlert('formAlert', msg, 'error');
+        return;
+      }
+
+      showAlert('formAlert', id ? 'Student updated successfully.' : 'Student added successfully.', 'success');
+      resetForm();
+      loadStudents();
+    } catch {
+      showAlert('formAlert', 'Request failed. Please try again.', 'error');
+    } finally {
+      btn.textContent = document.getElementById('studentId').value ? 'Update Student' : 'Add Student';
+      btn.disabled = false;
+    }
+  });
+
+  /* ── Edit ─────────────────────────────────────────────────────── */
+  async function editStudent(id) {
+    try {
+      const res  = await fetch(`${API}/${id}`);
+      const json = await res.json();
+      const s    = json.data;
+      document.getElementById('studentId').value  = s.id;
+      document.getElementById('first_name').value = s.first_name;
+      document.getElementById('last_name').value  = s.last_name;
+      document.getElementById('email').value       = s.email;
+      document.getElementById('phone').value       = s.phone  || '';
+      document.getElementById('age').value         = s.age    || '';
+      document.getElementById('course').value      = s.course || '';
+      document.getElementById('submitBtn').textContent = 'Update Student';
+      document.getElementById('cancelBtn').style.display = 'inline-block';
+      document.getElementById('formTitle').textContent   = 'Edit Student';
+      document.querySelector('.card').scrollIntoView({ behavior: 'smooth' });
+    } catch {
+      alert('Failed to load student data.');
+    }
+  }
+
+  document.getElementById('cancelBtn').addEventListener('click', resetForm);
+
+  function resetForm() {
+    document.getElementById('studentForm').reset();
+    document.getElementById('studentId').value = '';
+    document.getElementById('submitBtn').textContent = 'Add Student';
+    document.getElementById('cancelBtn').style.display = 'none';
+    document.getElementById('formTitle').textContent   = 'Add New Student';
+    document.getElementById('formAlert').style.display = 'none';
+  }
+
+  /* ── Delete ───────────────────────────────────────────────────── */
+  function confirmDelete(id) {
+    pendingDeleteId = id;
+    document.getElementById('deleteOverlay').classList.add('show');
+  }
+
+  function closeModal() {
+    pendingDeleteId = null;
+    document.getElementById('deleteOverlay').classList.remove('show');
+  }
+
+  document.getElementById('confirmDeleteBtn').addEventListener('click', async () => {
+    if (!pendingDeleteId) return;
+    try {
+      await fetch(`${API}/${pendingDeleteId}`, { method: 'DELETE' });
+      loadStudents();
+    } catch {
+      alert('Delete failed.');
+    } finally {
+      closeModal();
+    }
+  });
+
+  document.getElementById('deleteOverlay').addEventListener('click', e => {
+    if (e.target === e.currentTarget) closeModal();
+  });
+
+  /* ── Helpers ──────────────────────────────────────────────────── */
+  function showAlert(id, msg, type) {
+    const el = document.getElementById(id);
+    el.textContent = msg;
+    el.className   = `alert ${type}`;
+    el.style.display = 'block';
+    if (type === 'success') setTimeout(() => { el.style.display = 'none'; }, 3500);
+  }
+
+  function esc(str) {
+    return String(str)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  loadStudents();
+</script>
+</body>
+</html>
