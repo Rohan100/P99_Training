@@ -10,4 +10,5 @@ router.delete('/:id', deletePortDataById)
 
 router.post('/', createPortData)
 
+
 module.exports = router;

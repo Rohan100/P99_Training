@@ -1,10 +1,31 @@
 const portsData = require('../data/ports.data')
 
 const getAllPortData = (req, res) => {
+    let { country, status, port_role, page, limit } = req.query;
+    page = page || 1;
+    limit = limit || 10;
+    const skip = (page - 1) * limit;
+    const endIndex = page * limit;
+
+    const filteredData = portsData.filter(port => {
+        if (country && port.country !== country) return false;
+        if (status && port.status !== status) return false;
+        if (port_role && port.port_role !== port_role) return false;
+        return true;
+    });
+
+    let pagedData = filteredData.slice(skip, endIndex)
+    let total = pagedData.length;
     res.status(200).json({
         success: true,
-        message: "All port data fetched successfully",
-        data: portsData
+        message: "Port data filtered successfully",
+        data: pagedData,
+        pagination: {
+            total,
+            page,
+            limit,
+            totalPages: Math.ceil(filteredData.length / limit)
+        }
     })
 }
 
@@ -60,9 +81,12 @@ const createPortData = (req, res) => {
         data: { unlocode, country, name, port_role, status }
     })
 }
+
+
 module.exports = {
     getAllPortData,
     getPortDataById,
     deletePortDataById,
-    createPortData
+    createPortData,
+
 }
