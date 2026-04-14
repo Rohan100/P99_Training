@@ -66,6 +66,13 @@ const deletePortDataById = (req, res) => {
 
 const createPortData = (req, res) => {
     const { unlocode, country, name, port_role, status } = req.body;
+    if (!unlocode || !country || !name || !port_role || !status) {
+        return res.status(400).json({
+            success: false,
+            message: "All fields are required",
+            data: null
+        })
+    }
     const port = portsData.find(port => port.unlocode === unlocode);
     if (port) {
         return res.status(400).json({

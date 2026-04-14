@@ -1,31 +1,39 @@
 const StudentModel = require('../models/studentModel');
+const AppError = require('../utils/AppError');
 
-const getAllStudents = async (req, res) => {
-  try {
-    const students = await StudentModel.getAll();
-    res.status(200).json({
-      success: true,
-      count: students.length,
-      data: students,
-    });
-  } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
-  }
+// ─── GET /api/students ────────────────────────────────────────────────────────
+const getAllStudents = async (req, res, next) => {
+  next({
+    message: "Error from controller",
+    statusCode: 403
+  })
+  // try {
+  //   const students = await StudentModel.getAll();
+  //   res.status(200).json({
+  //     success: true,
+  //     count: students.length,
+  //     data: students,
+  //   });
+  // } catch (err) {
+  //   next(err); // forwarded to global error handler
+  // }
 };
 
-const getStudentById = async (req, res) => {
+// ─── GET /api/students/:id ──────────────────────────────────────────────────── 
+const getStudentById = async (req, res, next) => {
   try {
     const student = await StudentModel.getById(req.params.id);
     if (!student) {
-      return res.status(404).json({ success: false, message: 'Student not found' });
+      return next(new AppError('Student not found', 404));
     }
     res.status(200).json({ success: true, data: student });
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    next(err);
   }
 };
 
-const createStudent = async (req, res) => {
+// ─── POST /api/students ───────────────────────────────────────────────────────
+const createStudent = async (req, res, next) => {
   try {
     const student = await StudentModel.create(req.body);
     res.status(201).json({
@@ -34,18 +42,16 @@ const createStudent = async (req, res) => {
       data: student,
     });
   } catch (err) {
-    if (err.code === '23505') {
-      return res.status(409).json({ success: false, message: 'A student with this email already exists.' });
-    }
-    res.status(500).json({ success: false, message: err.message });
+    next(err); // duplicate-email (23505) handled centrally
   }
 };
 
-const updateStudent = async (req, res) => {
+// ─── PUT /api/students/:id ────────────────────────────────────────────────────
+const updateStudent = async (req, res, next) => {
   try {
     const student = await StudentModel.update(req.params.id, req.body);
     if (!student) {
-      return res.status(404).json({ success: false, message: 'Student not found' });
+      return next(new AppError('Student not found', 404));
     }
     res.status(200).json({
       success: true,
@@ -53,18 +59,16 @@ const updateStudent = async (req, res) => {
       data: student,
     });
   } catch (err) {
-    if (err.code === '23505') {
-      return res.status(409).json({ success: false, message: 'A student with this email already exists.' });
-    }
-    res.status(500).json({ success: false, message: err.message });
+    next(err);
   }
 };
 
-const deleteStudent = async (req, res) => {
+// ─── DELETE /api/students/:id ─────────────────────────────────────────────────
+const deleteStudent = async (req, res, next) => {
   try {
     const student = await StudentModel.delete(req.params.id);
     if (!student) {
-      return res.status(404).json({ success: false, message: 'Student not found' });
+      return next(new AppError('Student not found', 404));
     }
     res.status(200).json({
       success: true,
@@ -72,7 +76,7 @@ const deleteStudent = async (req, res) => {
       data: student,
     });
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    next(err);
   }
 };
 

@@ -3,7 +3,9 @@ const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
 
-const studentRoutes = require('./routes/studentRoutes');
+const studentRoutes  = require('./routes/studentRoutes');
+const errorHandler   = require('./middlewares/errorHandler');
+const AppError       = require('./utils/AppError');
 
 const app = express();
 
@@ -20,8 +22,13 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use('/api/students', studentRoutes);
 
 // ─── 404 Handler ──────────────────────────────────────────────────────────────
-app.use((req, res) => {
-  res.status(404).json({ success: false, message: `Route ${req.originalUrl} not found` });
+// Must be registered BEFORE the error handler but AFTER all routes
+app.use((req, res, next) => {
+  next(new AppError(`Route ${req.originalUrl} not found`, 404));
 });
+
+// ─── Global Error Handler ─────────────────────────────────────────────────────
+// Must be the LAST middleware — four params signals Express this is an error handler
+app.use(errorHandler);
 
 module.exports = app;
