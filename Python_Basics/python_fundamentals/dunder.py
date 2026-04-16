@@ -11,7 +11,7 @@ class BankAccount:
         return f"BankAccount('{self.owner}', {self.balance})"
 
     def __add__(self, other):
-        return self.balance + other.balance
+        return  self.balance + other.balance
 
     def __gt__(self, other):
         return self.balance > other.balance

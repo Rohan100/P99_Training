@@ -1,9 +1,8 @@
-def my_decorator(func):
+def call_twice(func):
     def wrapper(*args, **kwargs):
-        print("Decorator: Before function execution")
-        result = func(*args, **kwargs)
-        print("Decorator: After function execution")
-        return result
+        func(*args, **kwargs)
+        func(*args, **kwargs)
+    
     return wrapper
 
 
@@ -13,9 +12,9 @@ class Demo:
         self.name = name
         print(f"Constructor: Object created for {self.name}")
 
-    @my_decorator
+    @call_twice
     def say_hello(self):
-        print(f"Hello, {self.name}!")
+        print(self.name)
 
     def __del__(self):
         print(f"Destructor: Object destroyed for {self.name}")
