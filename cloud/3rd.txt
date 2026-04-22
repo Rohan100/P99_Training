@@ -1,0 +1,12 @@
+Linux commands
+hosting webiste on ec2 instance 
+ebs
+snapshot
+snowcone / snowball
+simple notification service
+cloudwatch
+alarms
+
+auto scaling groups
+launch templet
+	user data (boot script)
