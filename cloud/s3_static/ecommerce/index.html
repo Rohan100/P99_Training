@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ShopNow - Your one-stop shop for the best products at the best prices." />
+  <title>ShopNow | Modern E-Commerce Store</title>
+  <link rel="stylesheet" href="./style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="#" class="logo">Shop<span>Now</span></a>
+      <nav class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#products">Products</a>
+        <a href="#categories">Categories</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" id="search-input" placeholder="Search products..." />
+        </div>
+        <button class="cart-btn" id="cart-icon">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-count" id="cart-count">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section class="hero" id="home">
+    <div class="container hero-content">
+      <div class="hero-text">
+        <span class="badge">New Arrivals 2025</span>
+        <h1>Discover Premium Products at Great Prices</h1>
+        <p>Shop the latest trends in electronics, fashion, and lifestyle — all in one place. Fast delivery, easy
+          returns.</p>
+        <div class="hero-btns">
+          <a href="#products" class="btn btn-primary">Shop Now</a>
+          <a href="#categories" class="btn btn-outline">Browse Categories</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><strong>10K+</strong><span>Products</span></div>
+          <div class="stat"><strong>50K+</strong><span>Customers</span></div>
+          <div class="stat"><strong>4.9★</strong><span>Rating</span></div>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="hero-card">
+          <div class="product-visual electronics">
+            <i class="fas fa-headphones"></i>
+          </div>
+          <p>Premium Headphones</p>
+          <strong>$129.99</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ANNOUNCEMENT BAR ===== -->
+  <div class="announcement-bar">
+    <p>🎉 Free shipping on orders over $50 &nbsp;|&nbsp; 🔄 Easy 30-day returns &nbsp;|&nbsp; 🔒 Secure checkout</p>
+  </div>
+
+  <!-- ===== CATEGORIES ===== -->
+  <section class="categories" id="categories">
+    <div class="container">
+      <div class="section-header">
+        <h2>Shop by Category</h2>
+        <p>Find exactly what you're looking for</p>
+      </div>
+      <div class="category-grid">
+        <div class="category-card" onclick="filterProducts('Electronics')">
+          <div class="cat-icon electronics"><i class="fas fa-laptop"></i></div>
+          <h3>Electronics</h3>
+          <span>120+ items</span>
+        </div>
+        <div class="category-card" onclick="filterProducts('Fashion')">
+          <div class="cat-icon fashion"><i class="fas fa-tshirt"></i></div>
+          <h3>Fashion</h3>
+          <span>200+ items</span>
+        </div>
+        <div class="category-card" onclick="filterProducts('Footwear')">
+          <div class="cat-icon footwear"><i class="fas fa-shoe-prints"></i></div>
+          <h3>Footwear</h3>
+          <span>80+ items</span>
+        </div>
+        <div class="category-card" onclick="filterProducts('Accessories')">
+          <div class="cat-icon accessories"><i class="fas fa-glasses"></i></div>
+          <h3>Accessories</h3>
+          <span>150+ items</span>
+        </div>
+        <div class="category-card" onclick="filterProducts('Home')">
+          <div class="cat-icon home-cat"><i class="fas fa-couch"></i></div>
+          <h3>Home & Living</h3>
+          <span>90+ items</span>
+        </div>
+        <div class="category-card" onclick="filterProducts('Sports')">
+          <div class="cat-icon sports"><i class="fas fa-dumbbell"></i></div>
+          <h3>Sports</h3>
+          <span>60+ items</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRODUCTS SECTION ===== -->
+  <section class="products-section" id="products">
+    <div class="container">
+      <div class="section-header">
+        <h2>Featured Products</h2>
+        <p>Handpicked just for you</p>
+      </div>
+
+      <!-- Filter Bar -->
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterProducts('All')">All</button>
+        <button class="filter-btn" onclick="filterProducts('Electronics')">Electronics</button>
+        <button class="filter-btn" onclick="filterProducts('Fashion')">Fashion</button>
+        <button class="filter-btn" onclick="filterProducts('Footwear')">Footwear</button>
+        <button class="filter-btn" onclick="filterProducts('Accessories')">Accessories</button>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="products-grid" id="products-grid">
+
+        <div class="product-card" data-category="Electronics">
+          <div class="product-badge sale">Sale</div>
+          <div class="product-img electronics"><i class="fas fa-headphones"></i></div>
+          <div class="product-info">
+            <span class="category-tag">Electronics</span>
+            <h3>Wireless Headphones Pro</h3>
+            <div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> <span>(128)</span></div>
+            <div class="price-row">
+              <span class="price">$129.99</span>
+              <span class="old-price">$179.99</span>
+            </div>
+            <button class="add-cart-btn" onclick="addToCart('Wireless Headphones Pro', 129.99)"><i
+                class="fas fa-cart-plus"></i> Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="Electronics">
+          <div class="product-badge new">New</div>
+          <div class="product-img watch"><i class="fas fa-clock"></i></div>
+          <div class="product-info">
+            <span class="category-tag">Electronics</span>
+            <h3>Smart Watch Series X</h3>
+            <div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star"></i> <span>(95)</span></div>
+            <div class="price-row">
+              <span class="price">$249.99</span>
+            </div>
+            <button class="add-cart-btn" onclick="addToCart('Smart Watch Series X', 249.99)"><i
+                class="fas fa-cart-plus"></i> Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="Footwear">
+          <div class="product-img sneakers"><i class="fas fa-shoe-prints"></i></div>
+          <div class="product-info">
+            <span class="category-tag">Footwear</span>
+            <h3>Air Boost Sneakers</h3>
+            <div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="far fa-star"></i> <span>(74)</span></div>
+            <div class="price-row">
+              <span class="price">$89.99</span>
+              <span class="old-price">$110.00</span>
+            </div>
+            <button class="add-cart-btn" onclick="addToCart('Air Boost Sneakers', 89.99)"><i
+                class="fas fa-cart-plus"></i> Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="Accessories">
+          <div class="product-badge sale">Sale</div>
+          <div class="product-img sunglasses"><i class="fas fa-glasses"></i></div>
+          <div class="product-info">
+            <span class="category-tag">Accessories</span>
+            <h3>Aviator Sunglasses</h3>
+            <div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> <span>(61)</span></div>
+            <div class="price-row">
+              <span class="price">$49.99</span>
+              <span class="old-price">$79.99</span>
+            </div>
+            <button class="add-cart-btn" onclick="addToCart('Aviator Sunglasses', 49.99)"><i
+                class="fas fa-cart-plus"></i> Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="Fashion">
+          <div class="product-badge new">New</div>
+          <div class="product-img jacket"><i class="fas fa-tshirt"></i></div>
+          <div class="product-info">
+            <span class="category-tag">Fashion</span>
+            <h3>Urban Bomber Jacket</h3>
+            <div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="far fa-star"></i> <span>(43)</span></div>
+            <div class="price-row">
+              <span class="price">$74.99</span>
+            </div>
+            <button class="add-cart-btn" onclick="addToCart('Urban Bomber Jacket', 74.99)"><i
+                class="fas fa-cart-plus"></i> Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="Electronics">
+          <div class="product-img speaker"><i class="fas fa-volume-up"></i></div>
+          <div class="product-info">
+            <span class="category-tag">Electronics</span>
+            <h3>Portable Bluetooth Speaker</h3>
+            <div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star"></i> <span>(210)</span></div>
+            <div class="price-row">
+              <span class="price">$59.99</span>
+            </div>
+            <button class="add-cart-btn" onclick="addToCart('Bluetooth Speaker', 59.99)"><i
+                class="fas fa-cart-plus"></i> Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="Fashion">
+          <div class="product-img bag"><i class="fas fa-shopping-bag"></i></div>
+          <div class="product-info">
+            <span class="category-tag">Fashion</span>
+            <h3>Leather Crossbody Bag</h3>
+            <div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="far fa-star"></i> <span>(38)</span></div>
+            <div class="price-row">
+              <span class="price">$64.99</span>
+              <span class="old-price">$85.00</span>
+            </div>
+            <button class="add-cart-btn" onclick="addToCart('Leather Crossbody Bag', 64.99)"><i
+                class="fas fa-cart-plus"></i> Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="Accessories">
+          <div class="product-img wallet"><i class="fas fa-wallet"></i></div>
+          <div class="product-info">
+            <span class="category-tag">Accessories</span>
+            <h3>Slim RFID Wallet</h3>
+            <div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> <span>(88)</span></div>
+            <div class="price-row">
+              <span class="price">$29.99</span>
+            </div>
+            <button class="add-cart-btn" onclick="addToCart('Slim RFID Wallet', 29.99)"><i class="fas fa-cart-plus"></i>
+              Add to Cart</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROMO BANNER ===== -->
+  <section class="promo-banner">
+    <div class="container promo-inner">
+      <div class="promo-text">
+        <h2>Summer Sale is Live! 🔥</h2>
+        <p>Up to 50% off on selected items. Limited time offer — don't miss out!</p>
+        <a href="#products" class="btn btn-white">Grab the Deal</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHY CHOOSE US ===== -->
+  <section class="features" id="about">
+    <div class="container">
+      <div class="section-header">
+        <h2>Why Choose ShopNow?</h2>
+        <p>We make online shopping easy, safe, and fun</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-truck"></i></div>
+          <h3>Free Shipping</h3>
+          <p>Free delivery on all orders above $50. We deliver to your doorstep fast.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-undo"></i></div>
+          <h3>Easy Returns</h3>
+          <p>30-day hassle-free return policy. Not happy? We'll make it right.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-lock"></i></div>
+          <h3>Secure Payment</h3>
+          <p>Your payment information is encrypted and completely secure.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-headset"></i></div>
+          <h3>24/7 Support</h3>
+          <p>Our support team is available around the clock to help you.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== NEWSLETTER ===== -->
+  <section class="newsletter">
+    <div class="container newsletter-inner">
+      <i class="fas fa-envelope-open-text newsletter-icon"></i>
+      <h2>Subscribe to our Newsletter</h2>
+      <p>Get the latest deals, new arrivals, and style tips straight to your inbox.</p>
+      <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+        <input type="email" id="newsletter-email" placeholder="Enter your email address" required />
+        <button type="submit" class="btn btn-primary">Subscribe</button>
+      </form>
+      <p class="newsletter-note" id="newsletter-msg"></p>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" id="contact">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">Shop<span>Now</span></a>
+        <p>Your premium destination for quality products. Shop smart, live better.</p>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#">New Arrivals</a></li>
+          <li><a href="#">Best Sellers</a></li>
+          <li><a href="#">Sale Items</a></li>
+          <li><a href="#">All Products</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Help</h4>
+        <ul>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Shipping Info</a></li>
+          <li><a href="#">Return Policy</a></li>
+          <li><a href="#">Track Order</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Contact Us</h4>
+        <ul>
+          <li><i class="fas fa-envelope"></i> support@shopnow.com</li>
+          <li><i class="fas fa-phone"></i> +1 (800) 123-4567</li>
+          <li><i class="fas fa-map-marker-alt"></i> 123 Commerce St, NY</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 ShopNow. All rights reserved.</p>
+      <div class="payment-icons">
+        <i class="fab fa-cc-visa"></i>
+        <i class="fab fa-cc-mastercard"></i>
+        <i class="fab fa-cc-paypal"></i>
+        <i class="fab fa-cc-apple-pay"></i>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== CART TOAST ===== -->
+  <div class="toast" id="cart-toast">
+    <i class="fas fa-check-circle"></i>
+    <span id="toast-msg">Item added to cart!</span>
+  </div>
+
+  <!-- ===== BACK TO TOP ===== -->
+  <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script>
+    // ===== CART =====
+    let cartCount = 0;
+    function addToCart(name, price) {
+      cartCount++;
+      document.getElementById('cart-count').textContent = cartCount;
+      const toast = document.getElementById('cart-toast');
+      document.getElementById('toast-msg').textContent = `"${name}" added to cart!`;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    // ===== FILTER =====
+    function filterProducts(category) {
+      const cards = document.querySelectorAll('.product-card');
+      const btns = document.querySelectorAll('.filter-btn');
+      btns.forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      cards.forEach(card => {
+        if (category === 'All' || card.dataset.category === category) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // ===== NEWSLETTER =====
+    function subscribeNewsletter(e) {
+      e.preventDefault();
+      const msg = document.getElementById('newsletter-msg');
+      msg.textContent = '🎉 Thank you for subscribing! Check your inbox.';
+      msg.style.color = '#22c55e';
+      document.getElementById('newsletter-email').value = '';
+    }
+
+    // ===== BACK TO TOP =====
+    window.addEventListener('scroll', () => {
+      const btn = document.getElementById('back-to-top');
+      btn.style.display = window.scrollY > 300 ? 'flex' : 'none';
+    });
+
+    // ===== NAVBAR SCROLL EFFECT =====
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('.navbar');
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    });
+  </script>
+</body>
+
+</html>

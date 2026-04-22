@@ -10,3 +10,6 @@ alarms
 auto scaling groups
 launch templet
 	user data (boot script)
+
+IAM users
+aws client command  
