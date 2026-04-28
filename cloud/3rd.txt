@@ -12,4 +12,12 @@ launch templet
 	user data (boot script)
 
 IAM users
-aws client command  
+aws cli commands
+s3 bucket policy
+static website hosting
+aws cloudtrail
+aws price calculator
+route 53
+RDS
+Aws Lambda
+
